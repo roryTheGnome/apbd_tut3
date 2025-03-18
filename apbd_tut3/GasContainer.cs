@@ -1,22 +1,22 @@
 ﻿namespace apbd_tut3;
 
-public class GasContainer : Container , HazardNotifier
+public class GasContainer : Container , IHazardNotifier
 {
-    private double mass;
-    private double height;
-    private double tareWeight;
-    private double depth;
-    private double maxPayload;
+    private double mass { get; set; }
+    private double height { get; set; }
+    private double tareWeight { get; set; }
+    private double depth { get; set; }
+    private double maxPayload { get; set; }
     
-    private String serialNo;
-    private double pressure;
+    private String serialNo { get; set; }
+    private double pressure { get; set; }
     
     public GasContainer(double height, double tareWeight, double depth ,double maxPayload , double pressure) : base(height, tareWeight, depth , maxPayload)
     {
         this.pressure = pressure;
         serialNo = "KON-G-"+serialNoTracker;
         serialNoTracker++;
-        this.mass=tareWeight;
+        mass=tareWeight;
     }
     
     public void SendHazardNotification()
@@ -24,17 +24,11 @@ public class GasContainer : Container , HazardNotifier
         Console.WriteLine("Hazard Notification!! : There is a hazard in container "+serialNo);
     }
 
-    public void load()
+    public void loadContainer(Product product) {}
+
+    public override void emptyContainer()
     {
-        
-    }
-    
-    public bool checkForWeight()
-    {
-        if ((mass) < maxPayload)
-        {
-            return true;
-        }
-        return false;
+        double remainnig= ((mass - tareWeight) / 100)*5;
+        mass=tareWeight+remainnig;
     }
 }

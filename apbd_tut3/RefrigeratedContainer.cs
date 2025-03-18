@@ -2,26 +2,28 @@
 
 public class RefrigeratedContainer  : Container
 {
-    private double mass;
-    private double height;
-    private double tareWeight;
-    private double depth;
-    private double maxPayload;
+    private double mass { get; set; }
+    private double height { get; set; }
+    private double tareWeight { get; set; }
+    private double depth { get; set; }
+    private double maxPayload { get; set; }
+    
+    
     private String serialNo;
-    private String type;
+    private String productType;
     private double temperature;
     private Product p;
     
     
     public RefrigeratedContainer(double height, double tareWeight, double depth , double maxPayload) : base(height, tareWeight, depth , maxPayload)
     {
-        this.type = "";
+        this.productType = "";
         serialNo = "KON-R-"+serialNoTracker;
         serialNoTracker++;
         this.mass=tareWeight;
     }
 
-    public void loadContainer(Product p)
+    public override void loadContainer(Product p)
     {
         if (checkForMatch(p))
         {
@@ -30,12 +32,12 @@ public class RefrigeratedContainer  : Container
                 if (checkForWeight(p))
                 {
                     Console.WriteLine(p.type+" has been added to container "+serialNo);
-                    type = p.type;
+                    this.productType = p.type;
                     mass += p.weight;
                 }
                 else
                 {
-                    Console.WriteLine("Weight error!!"); //find somethng better to write here
+                    throw new OverfillException("This container can not handle this much weight!");
                 }
             }
             else
@@ -45,64 +47,21 @@ public class RefrigeratedContainer  : Container
         }
         else
         {
-            Console.WriteLine("Type match error!!");
+            Console.WriteLine("Type match error!!"); //maybe throw new exception here??
         }
     }
+    
+    public void emptyContainer(){}
 
     public bool checkForMatch(Product p)
     {
-        /*if (type == "")
-        {
-            if (checkForTemp(p))
-            {
-                if (checkForWeight(p))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            } 
-        }
-        else
-        {
-            if (type == p.type)
-            {
-                if (checkForTemp(p))
-                {
-                    if (checkForWeight(p))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                } 
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return true;*/
-        
-        if (type == "")
+        if (productType == "")
         {
             return true;
         }
         else
         {
-            if (type == p.type)
+            if (productType == p.type)
             {
                 return true;
             }
@@ -115,7 +74,7 @@ public class RefrigeratedContainer  : Container
 
     public bool checkForTemp(Product p)
     {
-        if (temperature >= p.temperature)
+        if (this.temperature <= p.temperature)
         {
             return true;
         }

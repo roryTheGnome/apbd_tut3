@@ -2,13 +2,13 @@
 
 namespace apbd_tut3;
 
-public class LiquidContainer : Container , HazardNotifier
+public class LiquidContainer : Container , IHazardNotifier
 {
-    private double mass;
-    private double height;
-    private double tareWeight;
-    private double depth;
-    private double maxPayload;
+    private double mass { get; set; }
+    private double height { get; set; }
+    private double tareWeight { get; set; }
+    private double depth { get; set; }
+    private double maxPayload { get; set; }
     
     private String serialNo;
     
@@ -23,4 +23,33 @@ public class LiquidContainer : Container , HazardNotifier
     {
         Console.WriteLine("Hazard Notification!! : There is a hazard in container "+serialNo);
     }
+    
+    public override void loadContainer(Product product)
+    {
+        if (product.isHazard)
+        {
+            if (product.weight + mass > (this.maxPayload)/2)
+            {
+                throw new OverfillException("This container can not handle this much weight!");
+            }
+            else
+            {
+                mass += product.weight;
+            }
+        }
+        else
+        {
+            if (product.weight + mass > ((this.maxPayload) / 10) * 9)
+            {
+                throw new OverfillException("This container can not handle this much weight!");
+            }
+            else
+            {
+                mass += product.weight;
+            }
+        }
+    }
+
+    public void emptyContainer(){}
 }
+
