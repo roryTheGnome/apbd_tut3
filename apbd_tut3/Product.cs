@@ -7,6 +7,7 @@ public class Product
     public double weight { get; set; }
     public bool isHazard { get; set; }
     public char containerType { get; set; }
+    public bool contained { get; set; }
 
     //there is an easier way to do this part, implement that later
     public Product(String type, double temperature, double weight) //for refrigerated containers
@@ -15,6 +16,7 @@ public class Product
         this.temperature = temperature;
         this.weight = weight;
         containerType = 'R';
+        contained = false;
     }
 
     public Product(bool isHazard, String type, double weight)  //for liquid containers

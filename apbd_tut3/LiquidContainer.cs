@@ -1,22 +1,26 @@
-﻿using System.Security.AccessControl;
+﻿using System.Collections;
+using System.Security.AccessControl;
 
 namespace apbd_tut3;
 
 public class LiquidContainer : Container , IHazardNotifier
 {
-    private double mass { get; set; }
-    private double height { get; set; }
-    private double tareWeight { get; set; }
-    private double depth { get; set; }
-    private double maxPayload { get; set; }
+    public double mass { get; set; }
+    public double height { get; set; }
+    public double tareWeight { get; set; }
+    public double depth { get; set; }
+    public double maxPayload { get; set; }
+    public List<Product> productList { get; set; }
     
-    private String serialNo;
+    public String serialNo { get; set; }
+    public char contType { get; set; }
     
     public LiquidContainer(double height, double tareWeight, double depth , double maxPayload) : base(height, tareWeight, depth , maxPayload)
     {
         serialNo = "KON-L-"+serialNoTracker;
         serialNoTracker++;
         this.mass=tareWeight;
+        contType = 'L';
     }
 
     public void SendHazardNotification()
@@ -26,27 +30,67 @@ public class LiquidContainer : Container , IHazardNotifier
     
     public override void loadContainer(Product product)
     {
-        if (product.isHazard)
+        try
         {
-            if (product.weight + mass > (this.maxPayload)/2)
+            if(!product.contained)
             {
-                throw new OverfillException("This container can not handle this much weight!");
+                if (product.containerType == this.contType)
+                {
+                    if (product.isHazard)
+                    {
+                        try
+                        {
+                            if (product.weight + mass > (this.maxPayload) / 2)
+                            {
+                                throw new OverfillException("This container can not handle this much weight!");
+                            }
+                            else
+                            {
+                                mass += product.weight;
+                                product.contained = true;
+                                productList.Add(product);
+                            }
+                        }
+                        catch (OverfillException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (product.weight + mass > ((this.maxPayload) / 10) * 9)
+                            {
+                                throw new OverfillException("This container can not handle this much weight!");
+                            }
+                            else
+                            {
+                                mass += product.weight;
+                                product.contained = true;
+                                productList.Add(product);
+                            }
+                        }
+                        catch (OverfillException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ContainerProductTypeMismatchException(
+                        "This product can not be contained in this container!!");
+                }
             }
             else
             {
-                mass += product.weight;
+                Console.WriteLine("This product is already contained in another container!");
             }
         }
-        else
+        catch (ContainerProductTypeMismatchException ex)
         {
-            if (product.weight + mass > ((this.maxPayload) / 10) * 9)
-            {
-                throw new OverfillException("This container can not handle this much weight!");
-            }
-            else
-            {
-                mass += product.weight;
-            }
+            Console.WriteLine(ex.Message);
         }
     }
 

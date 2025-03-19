@@ -1,15 +1,19 @@
-﻿namespace apbd_tut3;
+﻿using System.Collections;
+
+namespace apbd_tut3;
 
 public class GasContainer : Container , IHazardNotifier
 {
-    private double mass { get; set; }
-    private double height { get; set; }
-    private double tareWeight { get; set; }
-    private double depth { get; set; }
-    private double maxPayload { get; set; }
+    public double mass { get; set; }
+    public double height { get; set; }
+    public double tareWeight { get; set; }
+    public double depth { get; set; }
+    public double maxPayload { get; set; }
+    public List<Product> productList { get; set; }
     
-    private String serialNo { get; set; }
-    private double pressure { get; set; }
+    public String serialNo { get; set; }
+    public char contType { get; set; }
+    public double pressure { get; set; }
     
     public GasContainer(double height, double tareWeight, double depth ,double maxPayload , double pressure) : base(height, tareWeight, depth , maxPayload)
     {
@@ -17,6 +21,7 @@ public class GasContainer : Container , IHazardNotifier
         serialNo = "KON-G-"+serialNoTracker;
         serialNoTracker++;
         mass=tareWeight;
+        contType = 'G';
     }
     
     public void SendHazardNotification()
@@ -30,5 +35,10 @@ public class GasContainer : Container , IHazardNotifier
     {
         double remainnig= ((mass - tareWeight) / 100)*5;
         mass=tareWeight+remainnig;
+        for (int i = 0; i < productList.Count; i++)
+        {
+            productList[i].contained=false;
+            productList.RemoveAt(i);
+        }
     }
 }

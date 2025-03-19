@@ -1,53 +1,89 @@
-﻿namespace apbd_tut3;
+﻿using System.Collections;
+
+namespace apbd_tut3;
 
 public class RefrigeratedContainer  : Container
 {
-    private double mass { get; set; }
-    private double height { get; set; }
-    private double tareWeight { get; set; }
-    private double depth { get; set; }
-    private double maxPayload { get; set; }
+    public double mass { get; set; }
+    public double height { get; set; }
+    public double tareWeight { get; set; }
+    public double depth { get; set; }
+    public double maxPayload { get; set; }
+    public List<Product> productList { get; set; }
+    
+    public String serialNo { get; set; }
+    public char contType { get; set; }
+    public String productType { get; set; }
+    public double temperature { get; set; }
     
     
-    private String serialNo;
-    private String productType;
-    private double temperature;
-    private Product p;
-    
-    
-    public RefrigeratedContainer(double height, double tareWeight, double depth , double maxPayload) : base(height, tareWeight, depth , maxPayload)
+    public RefrigeratedContainer(double height, double tareWeight, double depth , double maxPayload , double temp) : base(height, tareWeight, depth , maxPayload)
     {
         this.productType = "";
         serialNo = "KON-R-"+serialNoTracker;
         serialNoTracker++;
         this.mass=tareWeight;
+        this.temperature = temp;
+        this.maxPayload = maxPayload;
+        contType = 'R';
     }
 
-    public override void loadContainer(Product p)
+    public override void loadContainer(Product product)
     {
-        if (checkForMatch(p))
+        try
         {
-            if (checkForTemp(p))
+            if(!product.contained)
             {
-                if (checkForWeight(p))
+                if (product.containerType == this.contType)
                 {
-                    Console.WriteLine(p.type+" has been added to container "+serialNo);
-                    this.productType = p.type;
-                    mass += p.weight;
+                    if (checkForMatch(product))
+                    {
+                        if (checkForTemp(product))
+                        {
+                            try
+                            {
+                                if (checkForWeight(product))
+                                {
+                                    Console.WriteLine(product.type + " has been added to container " + serialNo);
+                                    this.productType = product.type;
+                                    mass += product.weight;
+                                    product.contained = true;
+                                    productList.Add(product);
+                                }
+                                else
+                                {
+                                    throw new OverfillException("This container can not handle this much weight!");
+                                }
+                            }
+                            catch (OverfillException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Temp error!!"); //find somethng better to write here
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Type match error!!"); //maybe throw new exception here??
+                    }
                 }
                 else
                 {
-                    throw new OverfillException("This container can not handle this much weight!");
+                    throw new ContainerProductTypeMismatchException(
+                        "This product can not be contained in this container!!");
                 }
             }
             else
             {
-                Console.WriteLine("Temp error!!"); //find somethng better to write here
+                Console.WriteLine("This product can not be contained in this container!");
             }
         }
-        else
+        catch (ContainerProductTypeMismatchException ex)
         {
-            Console.WriteLine("Type match error!!"); //maybe throw new exception here??
+            Console.WriteLine(ex.Message);
         }
     }
     
