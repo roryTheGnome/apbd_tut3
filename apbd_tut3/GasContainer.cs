@@ -41,4 +41,15 @@ public class GasContainer : Container , IHazardNotifier
             productList.RemoveAt(i);
         }
     }
+    
+    public override void PrintContainerInfo()
+    {
+        Console.WriteLine($"Container Info:" +
+                          $"\nSerial No: {serialNo}" +
+                          $"\nHeight: {height} cm" +
+                          $"\nTare Weight: {tareWeight} kg" +
+                          $"\nDepth: {depth} cm" +
+                          $"\nMax Payload: {maxPayload} kg" +
+                          $"\nPressure: {pressure} atmospheres");
+    }
 }

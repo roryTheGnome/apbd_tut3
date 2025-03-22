@@ -5,6 +5,7 @@ namespace apbd_tut3;
 
 public class Container
 {
+    public bool isInShip { get; set; }
     public double mass { get; set; }
     public double height { get; set; }
     public double tareWeight { get; set; }
@@ -12,6 +13,7 @@ public class Container
     public double maxPayload { get; set; }
     public List<Product> productList { get; set; }
     public char contType { get; set; }
+    public String serialNo { get; set; }
     
     public static int serialNoTracker = 1;
 
@@ -22,6 +24,7 @@ public class Container
         this.depth = depth;
         this.maxPayload = maxPayload;
         productList = new List<Product>();
+        this.isInShip = false;
     }
 
     public virtual void emptyContainer()
@@ -78,7 +81,9 @@ public class Container
         }
         
     }
-    
+
+    public virtual void PrintContainerInfo(){}
+
 }
 public class OverfillException : Exception
 {

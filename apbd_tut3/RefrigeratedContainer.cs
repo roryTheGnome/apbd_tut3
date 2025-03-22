@@ -126,4 +126,15 @@ public class RefrigeratedContainer  : Container
         return false;
     }
     
+    public override void PrintContainerInfo()
+    {
+        Console.WriteLine($"Container Info:" +
+                          $"\nSerial No: {serialNo}" +
+                          $"\nHeight: {height} cm" +
+                          $"\nTare Weight: {tareWeight} kg" +
+                          $"\nDepth: {depth} cm" +
+                          $"\nMax Payload: {maxPayload} kg" +
+                          $"\nTemperature: {temperature} cm");
+    }
+    
 }
