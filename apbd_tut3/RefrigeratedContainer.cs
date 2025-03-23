@@ -4,7 +4,7 @@ namespace apbd_tut3;
 
 public class RefrigeratedContainer  : Container
 {
-    public double mass { get; set; }
+    /*public double mass { get; set; }
     public double height { get; set; }
     public double tareWeight { get; set; }
     public double depth { get; set; }
@@ -14,17 +14,18 @@ public class RefrigeratedContainer  : Container
     public String serialNo { get; set; }
     public char contType { get; set; }
     public String productType { get; set; }
-    public double temperature { get; set; }
+    public double temperature { get; set; }*/
     
+    public string productType { get; set; }
+    public double temperature { get; set; }
     
     public RefrigeratedContainer(double height, double tareWeight, double depth , double maxPayload , double temp) : base(height, tareWeight, depth , maxPayload)
     {
         this.productType = "";
-        serialNo = "KON-R-"+serialNoTracker;
+        this.serialNo += "KON-R-"+serialNoTracker;
         serialNoTracker++;
         this.mass=tareWeight;
         this.temperature = temp;
-        this.maxPayload = maxPayload;
         contType = 'R';
     }
 

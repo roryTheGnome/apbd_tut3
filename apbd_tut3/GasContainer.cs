@@ -4,15 +4,6 @@ namespace apbd_tut3;
 
 public class GasContainer : Container , IHazardNotifier
 {
-    public double mass { get; set; }
-    public double height { get; set; }
-    public double tareWeight { get; set; }
-    public double depth { get; set; }
-    public double maxPayload { get; set; }
-    public List<Product> productList { get; set; }
-    
-    public String serialNo { get; set; }
-    public char contType { get; set; }
     public double pressure { get; set; }
     
     public GasContainer(double height, double tareWeight, double depth ,double maxPayload , double pressure) : base(height, tareWeight, depth , maxPayload)

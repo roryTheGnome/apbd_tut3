@@ -25,6 +25,7 @@ public class Container
         this.maxPayload = maxPayload;
         productList = new List<Product>();
         this.isInShip = false;
+        serialNo = "";
     }
 
     public virtual void emptyContainer()

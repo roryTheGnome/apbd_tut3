@@ -3,6 +3,7 @@
 public class Voyage
 {
     public string serialNo { get; set; }
+    public static int counter = 0;
     public string startDate { get; set; }
     public string expectedEndDate { get; set; }
     public List<Ship> shipList { get; set; }
@@ -12,9 +13,10 @@ public class Voyage
     public string startLocation { get; set;}
     public string destination { get; set;}
     
-    public Voyage(string serialNo, string startDate, string expectedEndDate , string startLocation, string destination)
+    public Voyage(string startDate, string expectedEndDate , string startLocation, string destination)
     {
-        this.serialNo = serialNo;
+        serialNo = "VOY-"+counter;
+        counter++;
         this.startDate = startDate;
         this.expectedEndDate = expectedEndDate;
         this.startLocation = startLocation;

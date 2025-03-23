@@ -5,15 +5,6 @@ namespace apbd_tut3;
 
 public class LiquidContainer : Container , IHazardNotifier
 {
-    public double mass { get; set; }
-    public double height { get; set; }
-    public double tareWeight { get; set; }
-    public double depth { get; set; }
-    public double maxPayload { get; set; }
-    public List<Product> productList { get; set; }
-    
-    public String serialNo { get; set; }
-    public char contType { get; set; }
     
     public LiquidContainer(double height, double tareWeight, double depth , double maxPayload) : base(height, tareWeight, depth , maxPayload)
     {
