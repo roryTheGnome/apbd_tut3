@@ -7,28 +7,6 @@ using apbd_tut3;
 using Container = apbd_tut3.Container;
 
 
-/*RefrigeratedContainer rc01 = new RefrigeratedContainer(12, 125, 24, 250,(-10));
-RefrigeratedContainer rc02 = new RefrigeratedContainer(12, 125, 24, 250,20);
-LiquidContainer lc01 = new LiquidContainer(12, 125, 24, 250);
-LiquidContainer lc02 = new LiquidContainer(12, 125, 24, 250);
-GasContainer gc01 = new GasContainer(12, 125, 24, 250,120);
-GasContainer gc02 = new GasContainer(12, 125, 24, 250,120);
-
-Product rp01 =new Product("banana", 13.3 , 5);
-Product rp02 =new Product("banana", 13.3 , 2);
-Product rp03 =new Product("banana", 13.3 , 200);
-Product rp04 =new Product("ice", -18 , 2);
-
-rc01.loadContainer(rp01);
-Console.WriteLine(rp01.contained);
-rc01.loadContainer(rp02);
-rc01.loadContainer(rp03);
-rc01.loadContainer(rp04);
-
-Console.WriteLine(rc01.mass);
-Console.WriteLine(rp01.weight);
-Console.WriteLine(rc01.maxPayload);*/
-
     List<Container> AllContainers = new List<Container>();
     List<Ship> AllShips = new List<Ship>();
     List<Product> AllProducts = new List<Product>();
@@ -36,7 +14,8 @@ Console.WriteLine(rc01.maxPayload);*/
     
     
     
-    
+    ///THIS DUMMY DATA IS CREATED BY AI JUST TO TEST THE PROJECT
+    /*
     AllContainers.Add(new RefrigeratedContainer(10, 150, 20, 500, -5));
     AllContainers.Add(new RefrigeratedContainer(15, 200, 30, 800, -18));
     AllContainers.Add(new GasContainer(12, 180, 25, 700, 100));
@@ -52,7 +31,7 @@ Console.WriteLine(rc01.maxPayload);*/
 
     AllVoyages.Add(new Voyage("2025-04-01", "2025-05-01", "New York", "London"));
     AllVoyages.Add(new Voyage( "2025-06-15", "2025-07-20", "Shanghai", "Los Angeles"));
-
+    */
     
     
     
